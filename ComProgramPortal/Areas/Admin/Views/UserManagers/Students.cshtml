@@ -1,0 +1,120 @@
+﻿@model PagedList.IPagedList<ComProgramPortal.Models.Entities.StudentInfo>
+@using PagedList.Mvc;
+@using ComProgramPortal.Areas.Service
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "All Students";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i>Students Management</h3>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-5">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" value="@ViewBag.CurrentFilter">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-5">
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("New Student" , "NewStudent", null, new { @class = "btn btn-primary" })
+
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                        <th>
+                            FULL NAME
+                        </th>
+                        <th>
+                            USERNAME
+                        </th>
+                        <th>
+                            REG. NUMBER
+                        </th>
+                        <th>
+                            CREATION DATE
+                        </th>
+                        <th>
+                            REGISTERED BY
+                        </th>
+
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.user != null)
+                        {
+                            <tr>
+                                <td>
+                                    @item.user.Surname @item.user.FirstName @item.user.OtherName
+                                </td>
+
+                                <td>
+                                    @item.user.UserName
+                                </td>
+                                <td>
+                                    @item.StudentRegNumber
+                                </td>
+                                <td>
+                                    @item.user.DateRegistered
+                                </td>
+                                <td>
+                                    @item.user.RegisteredBy
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("Details", "StudentProfile", null, new { id = item.Id }, new { @class = "btn btn-primary" })
+                                  
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("Students",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+

@@ -1,0 +1,151 @@
+﻿@*@model IEnumerable<ComProgramPortal.Models.Entities.Enrollment>*@
+@model PagedList.IPagedList<ComProgramPortal.Models.Entities.Enrollment>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@*<h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+            <div class="box-body">
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-5"></div>
+                    <div class="col-md-5">
+                        <div class="btn-group pull-right">
+                            @Html.ActionLink("New Enrollment", "Create", null, new { @class = "btn btn-primary" })
+
+                            @*<div class="col-md-5">*@
+                                @using (Html.BeginForm("Index", "Enrollment", null, FormMethod.Post, new { @class = "" }))
+                                {
+
+                                    <div class="input-group" style="margin-left:10px;">
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                        </div>
+                                        <!-- /btn-group -->
+                                        <input type="text" name="SearchString" class="form-control" value="@ViewBag.CurrentFilter" placeholder="Search...">
+                                    </div>
+
+                                }
+                            @*</div>*@
+                            
+                    <div class="col-md-1"></div>
+                            </div>
+                        </div>
+                </div>
+
+                <!-- /.box-header -->
+                <div class="table-responsive border-table">
+
+                    <table id="example" class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                @*@Html.DisplayNameFor(model => model.Package.PackageName)*@
+                                PACKAGE NAME
+                            </th>
+                            @*<th>
+                                
+                                PAYMENT AMOUNT
+                            </th>*@
+                            <th>
+                                USERNAME
+                                @*@Html.DisplayNameFor(model => model.StudentInfo.Fullname)*@
+                            </th>
+                            <th>
+                                FULLNAME
+                                @*@Html.DisplayNameFor(model => model.StudentInfo.Fullname)*@
+                            </th>
+                            <th>
+                                SURNAME
+                                @*@Html.DisplayNameFor(model => model.StudentInfo.Surname)*@
+                            </th>
+                            <th>
+                                FIRSTNAME
+                                @*@Html.DisplayNameFor(model => model.StudentInfo.Firstname)*@
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Package.PackageName)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.Payment.PaymentAmount)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentInfo.Username)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentInfo.Fullname)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentInfo.Surname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentInfo.Firstname)
+                                </td>
+                                <td>
+                                    @*@Html.ActionLink("Create New", "Create")
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                            Action
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                            <li class="text-color-success">@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                                            <li class="text-color-success">@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+                                            <li class="text-color-danger">@Html.ActionLink("Remove", "Delete", new { id = item.Id })</li>
+
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                                        <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                                <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                                @Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page,
+                       currentFilter = ViewBag.CurrentFilter }))
+                            </div>
+                    @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of
+                    @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+         new
+         {
+             page,
+             //sortOrder = ViewBag.CurrentSort,
+             currentFilter =
+ViewBag.CurrentFilter
+         }))*@
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

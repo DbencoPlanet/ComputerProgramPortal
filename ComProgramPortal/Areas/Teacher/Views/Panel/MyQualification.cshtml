@@ -1,0 +1,120 @@
+﻿
+
+@model IEnumerable<ComProgramPortal.Models.Entities.TeacherQualification>
+
+@{
+    ViewBag.Title = "Qualification";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">@Html.ActionLink("Add Qualification", "AddQualification", "Panel", new { area = "Teacher" }, new { @class = "btn btn-primary" })</h3>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+
+                        <th>Name Of Institution</th>
+                        <th>Year Obtained</th>
+                        <th>CertificateObtained</th>
+                        <th>Action</th>
+                    </tr>
+                    @foreach (var item in Model)
+            {
+                        <tr>
+                            <td>@item.NameOfInstitution</td>
+                            <td>@item.YearObtained</td>
+                            <td>@item.CertificateObtained</td>
+                            <td>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="text-color-warning">@Html.ActionLink("Edit", "EditQualification", "Panel", new { area = "Teacher", id = item.Id }, null)</li>
+                                        <li class="text-color-danger">@Html.ActionLink("Details", "QualificationDetails", "panel", new { area = "Teacher", id = item.Id }, null)</li>
+                                        <li class="text-color-danger">@Html.ActionLink("Delete", "DeleteQualification", "panel", new { area = "Teacher", id = item.Id }, null)</li>
+
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@*@model IEnumerable<ComProgramPortal.Models.Entities.TeacherQualification>
+
+@{
+    ViewBag.Title = "MyQualification";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2>MyQualification</h2>
+
+<p>
+    @Html.ActionLink("Add Qualification", "AddQualification")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NameOfInstitution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearObtained)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CertificateObtained)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameOfInstitution)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearObtained)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CertificateObtained)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditQualification", new { id = item.Id }) |
+                @Html.ActionLink("Details", "QualificationDetails", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "DeleteQualification", new { id = item.Id })
+                
+            </td>
+        </tr>
+    }
+
+</table>*@
+
+

@@ -1,0 +1,44 @@
+﻿<li class="header">ADMIN NAVIGATION</li>
+<li><a href="@Url.Action("Index", "DashBoard", new { area="Admin"})"><i class="fa fa-dashboard"></i> <span>Admin Dashboard</span></a></li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-building-o"></i> <span> Programme Management</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="@Url.Action("Index", "Package", new { area="Admin"})"><i class="fa fa-circle-o"></i> Package Maganement</a></li>
+        <li><a href="@Url.Action("Index", "Payment", new { area="Admin"})"><i class="fa fa-circle-o"></i> Payment Maganement</a></li>
+    </ul>
+</li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-book"></i> <span> Enrollment Management</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="@Url.Action("Create", "Enrollment", new { area="Admin"})"><i class="fa fa-circle-o"></i> Student<span>'s</span> Enrollment</a></li>
+        <li><a href="@Url.Action("EnrolledStudent", "Enrollment", new { area="Admin"})"><i class="fa fa-circle-o"></i> Enrolled Student<span>s</span></a></li>
+    </ul>
+</li>
+<li><a href="@Url.Action("Students", "UserManagers", new { area="Admin"})"><i class="fa fa-users"></i> <span> Students Management</span></a></li>
+<li><a href="@Url.Action("Teacher", "UserManagers", new { area="Admin"})"><i class="fa fa-users"></i> <span> Teacher Management</span></a></li>
+<li class="treeview">
+    <a href="#">
+        <i class="fa fa-user"></i> <span> User Management</span>
+        <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+        </span>
+    </a>
+    <ul class="treeview-menu">
+        <li><a href="@Url.Action("Index", "UserManagers", new { area="Admin"})"><i class="fa fa-circle-o"></i> Users</a></li>
+        <li><a href="@Url.Action("Roles", "UserManagers", new { area="Admin"})"><i class="fa fa-circle-o"></i> Roles</a></li>
+    </ul>
+</li>
+<li><a href="@Url.Action("ChangePassword", "Account", new { area=""})"><i class="fa fa-lock"></i> <span>Change Password</span></a></li>
+
+
+

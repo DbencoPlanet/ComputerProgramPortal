@@ -1,0 +1,175 @@
+﻿@model ComProgramPortal.Models.Entities.Package
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <!-- general form elements -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">New Package</h3>
+
+                @if (TempData["success"] != null)
+            {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+                else if (TempData["failure"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["failure"]</strong>
+                    </div>
+                }
+
+            </div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="box-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.UserId, "Teacher", htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("TeacherName", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+                    <div class="form-group">
+                        @Html.Label("Package Teacher", new { @class = "control-label" })
+                        <div class="">
+                            @Html.DropDownList("UserId", ViewBag.TeacherName as SelectList, "Choose", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.Teacher, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Teacher, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Teacher, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PackageName, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.PackageName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PackageName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @id = "datepicker", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @id ="datepicker2", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PackageAmount, htmlAttributes: new { @class = "control-label" })
+                        <div class="">
+                            @Html.EditorFor(model => model.PackageAmount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PackageAmount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PackageInfo, htmlAttributes: new { @class = "control-label"})
+                        <div class="">
+                            @*@Html.TextAreaFor(model => model.PackageInfo, new { htmlAttributes = new { @id = "mytextarea", @style = "width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;", @class = "textarea" } })*@
+                            @*@Html.TextAreaFor(model => model.PackageInfo, new { htmlAttributes = new { @class = "form-control" } })*@
+                            <textarea class="textarea" placeholder="Place some text here" name="PackageInfo" id="mytextarea"
+                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            @Html.ValidationMessageFor(model => model.PackageInfo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Image", new { @class = "control-label" })
+                        <div class="">
+                            <input type="file" name="upload" class="form-control" required="required" accept=".jpg,.jpeg,.png" />
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <a href="javascript: history.back()" class="btn btn-default">Cancel</a>
+                    </div>
+               
+            }
+
+        </div>
+        
+
+    </div>
+    <div class="col-md-2"></div>
+
+</div>
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+
+@section Style {
+    <link rel="stylesheet" href="~/Content/Admin/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="~/Content/Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Content/Admin/bower_components/ckeditor/ckeditor.js"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="~/Content/Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="~/Content/Admin/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+}
+
+@section Scripts2 {
+    <script src="~/Content/Admin/tinymce/js/tinymce/tinymce.min.js"></script>
+    @*<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>*@
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
+    <script>
+        //Date picker
+        $('#datepicker').datepicker({
+            autoclose: true
+        })
+    </script>
+<script>
+        //Date picker
+        $('#datepicker2').datepicker({
+            autoclose: true
+        })
+</script>
+
+}

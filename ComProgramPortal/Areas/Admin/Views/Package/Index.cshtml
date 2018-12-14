@@ -1,0 +1,155 @@
+﻿@model IEnumerable<ComProgramPortal.Models.Entities.Package>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> Package List</h3>
+
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-5">
+                   
+                </div>
+                <div class="col-md-5">
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("New Package", "Create", null, new { @class = "btn btn-primary" })
+
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            IMAGE
+                        </th>
+
+                        <th>
+                               TEACHER NAME
+                            </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.PackageName)*@
+                            PACKAGE NAME
+                        </th>
+                        <th>
+                            DURATION
+                            @*@Html.DisplayNameFor(model => model.Duration)*@
+                        </th>
+                        <th>
+                            START DATE
+                            @*@Html.DisplayNameFor(model => model.StartDate)*@
+                        </th>
+                        <th>
+                            END DATE
+                            @*@Html.DisplayNameFor(model => model.EndDate)*@
+                        </th>
+                        <th>
+                            AMOUNT
+                            @*@Html.DisplayNameFor(model => model.PackageAmount)*@
+                        </th>
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.PackageInfo)*@
+                            PACKAGE DETAILS
+                        </th>
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@if (item.ImageId != 0)
+                           {
+                                <img class="img-responsive img-thumbnail" src="data:image/jpg;base64,@(Convert.ToBase64String(item.Image))" alt="">
+                            }
+                            else
+                            {
+                                
+
+                            }</td>
+                            <td>
+                                @*@{
+                                    var fullname = item.User.Surname + " " + item.User.FirstName + " " + item.User.OtherName;
+                                }
+                                @fullname*@
+                                @Html.DisplayFor(modelItem => item.User.Surname)  @Html.DisplayFor(modelItem => item.User.FirstName)  @Html.DisplayFor(modelItem => item.User.OtherName)  
+
+                               
+
+                                
+                            </td>
+
+                            @*<td>*@
+                            @*@Html.DisplayFor(modelItem => item.User.FirstName)*@
+                            @*@foreach(var nm in item.TeacherProfiles)
+                                {
+                                    @nm.Fullname
+                                }*@
+
+                            @*Teacher = x.User.Surname + " " + x.User.FirstName + " " + x.User.OtherName*@
+
+                            @*@item.User.Surname + " " + @item.User.FirstName + " " + @item.User.OtherName*@
+
+                            @*@Html.DisplayFor(modelItem => item.User.Surname + " " + modelItem => item.User.FirstName + " " + modelItem => item.User.OtherName)*@
+
+
+                            @*</td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PackageName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Duration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PackageAmount)
+                            </td>
+                            <td>
+                                @*@Html.Raw(Html.DisplayFor(modelItem => item.PackageInfo))*@
+                                @Html.Raw(item.PackageInfo)
+                            </td>
+
+                            <td>
+                                
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                        <li class="text-color-success">@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                                        <li class="text-color-success">@Html.ActionLink("Details", "Details", new { id = item.Id })</li>
+                                        <li class="text-color-danger">@Html.ActionLink("Remove", "Delete", new { id = item.Id })</li>
+
+                                    </ul>
+                                </div>
+                            </td>
+                           
+                        </tr>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    </div>
+

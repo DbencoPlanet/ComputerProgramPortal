@@ -1,0 +1,123 @@
+﻿@model ComProgramPortal.Models.Entities.Payment
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> Delete Payment</h3>
+
+            </div>
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+                    <tr>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.User.Surname)
+                            </th>*@
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.Package.PackageName)*@
+                            PACKAGE NAME
+                        </th>
+
+                        <th>
+                            @*@Html.DisplayNameFor(model => model.StudentName)*@
+                            @*@Html.DisplayNameFor(model => model.User.Fullname)*@
+                            FULLNAME
+                        </th>
+                        <th>
+                            PAYMENT DATE
+                            @*@Html.DisplayNameFor(model => model.PaymentDate)*@
+                        </th>
+
+                        <th>
+                            PAYMENT AMOUNT
+                            @*@Html.DisplayNameFor(model => model.PaymentAmount)*@
+                            
+                        </th>
+                        <th>
+                            BALANCE
+                            @*@Html.DisplayNameFor(model => model.Balance)*@
+                        </th>
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </th>*@
+                        @*<th>
+                            @Html.DisplayNameFor(model => model.PackageInfo)
+                        </th>*@
+                        <th>ACTION</th>
+
+                    </tr>
+
+                    <tr>
+
+
+                        <td>
+                            @*@Html.DisplayFor(model => model.Teacher)*@
+                            @Model.Package.PackageName
+                        </td>
+
+
+
+                        <td>
+                            @*@Model.User.Fullname*@
+                            @Model.User.Surname  @Model.User.FirstName  @Model.User.OtherName
+
+                        </td>
+
+
+                        <td>
+                            @Model.PaymentDate
+
+                        </td>
+
+
+                        <td>
+                            @Model.PaymentAmount
+
+                        </td>
+
+                        <td>
+                            @Model.Balance
+
+                        </td>
+
+
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                                    @Html.ActionLink("Back to List", "Index")
+                                </div>
+                            }
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

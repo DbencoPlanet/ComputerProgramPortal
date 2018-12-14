@@ -1,0 +1,113 @@
+﻿
+
+@model ComProgramPortal.Models.Entities.TeacherQualification
+
+@{
+    ViewBag.Title = "Qualification";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header with-border">
+             
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                            Action
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+
+                            <li class="text-color-warning">@Html.ActionLink("Edit", "EditQualification", "Panel", new { area = "Teacher", id = Model.Id }, null)</li>
+                            <li class="text-color-danger">@Html.ActionLink("Delete", "DeleteQualification", "panel", new { area = "Teacher", id = Model.Id }, null)</li>
+
+                        </ul>
+                    </div>
+                    @*<h3 class="box-title">@Html.ActionLink("Add Qualification", "AddQualification", "Panel", new { area = "Teacher" }, new { @class = "btn btn-primary" })</h3>*@
+
+</div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Name Of Institution</th>
+                        <td>@Model.NameOfInstitution</td>
+                     </tr>
+                    <tr>
+                        <th>Year Obtained</th>
+                        <td>@Model.YearObtained</td>
+                    </tr>
+                    <tr>
+                        <th>CertificateObtained</th>
+                        <td>@Model.CertificateObtained</td>
+                      
+                    </tr>
+
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@*@model ComProgramPortal.Models.Entities.TeacherQualification
+
+@{
+    ViewBag.Title = "QualificationDetails";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>QualificationDetails</h2>
+
+<div>
+    <h4>Qualification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NameOfInstitution)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameOfInstitution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.YearObtained)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.YearObtained)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CertificateObtained)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertificateObtained)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditQualification", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "MyQualification")
+</p>*@
+
+
+

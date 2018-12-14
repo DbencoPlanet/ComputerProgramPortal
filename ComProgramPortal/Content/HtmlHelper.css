@@ -1,0 +1,59 @@
+﻿
+.form-group{
+    margin-bottom: 40px;
+    position: relative;
+}
+
+input {
+    font-size: 18px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid #757575;
+}
+
+input:focus {
+    outline: none;
+}
+
+label {
+    color: #999;
+    font-size: 1.0em;
+    position: absolute;
+    pointer-events: none;
+    font-weight: bold;
+    left: 25px;
+    top: 10px;
+    -moz-transition: 0.25s ease all;
+    -webkit-transition: 0.25s ease all;
+    transition: 0.25s ease all;
+}
+
+.inputFocus{
+    top: -55%;
+    left: 15px;
+    font-size: 14px;
+    color: #2196f3;
+    font-weight: bold;
+}
+
+.icon-div{
+
+    float: right;
+    margin-right: 20px;
+
+}
+
+.icon-input{
+
+    position: absolute;
+    margin-top: 15px;
+    color: #2196f3;
+
+}
+
+.field-validation-error{
+    position: absolute;
+    font-size: 12px;
+}

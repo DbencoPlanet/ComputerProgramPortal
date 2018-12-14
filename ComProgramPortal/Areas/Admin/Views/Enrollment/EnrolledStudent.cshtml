@@ -1,0 +1,192 @@
+﻿
+@{
+    //ViewBag.Title = "EnrolledStudent";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@*@model PagedList.IPagedList<ComProgramPortal.Models.Entities.Enrollment>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />*@
+@model IEnumerable<ComProgramPortal.Models.Entities.Enrollment>
+@{
+    ViewBag.Title = "Enrolled Students";
+    string returnUrl = HttpContext.Current.Request.Url.AbsolutePath;
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <span style="color:#337ab7;font-size:30px;"><i class="fa fa-fw fa-users" style="color:#337ab7;"></i> Enrolled Student<span>s</span></span>   <span style="font-size:15px;"> Number of  Student<span>s</span>: @Model.Count() / @ViewBag.Total </span>
+
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+                @if (TempData["error"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["error"]</strong>
+                    </div>
+                }
+
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <h3 class="box-title" style="margin-top:0px;">Enrolled  Student<span>s</span> (@ViewBag.Total)</h3>
+                    </div>
+
+                    <div class="col-md-5">
+                        @using (Html.BeginForm("EnrolledStudent", "Enrollment", null, FormMethod.Post, new { @class = "" }))
+                        {
+
+                            <div class="input-group" style="margin-left:10px;">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" name="SearchString" class="form-control" value="@ViewBag.CurrentFilter" placeholder="Search...">
+                            </div>
+
+                        }
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+                <br />
+                <!-- /.box-header -->
+                <div class="table-responsive border-table">
+
+                    <table id="example" class="table table-bordered table-hover">
+
+                        <thead>
+                            <tr>
+
+
+                                <th>
+                                    USERNAME
+                                </th>
+                                <th>
+                                    FULL NAME
+                                </th>
+
+
+                                <th style="text-transform:uppercase;">
+                                    Student<span>'s</span> PIN
+                                </th>
+
+                                <th>
+                                    PACKAGE
+                                </th>
+                                <th>
+                                    ACTION
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int sno = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentInfo.Username)
+                                    </td>
+                                    
+                                    @*<td>
+                                        @Html.DisplayFor(modelItem => item.StudentInfo.Fullname)
+                                    </td>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentInfo.Fullname)
+                                        @*@{
+                                            var fullname = item.StudentInfo.Surname + " " + item.StudentInfo.Firstname + " " + item.StudentInfo.Othername;
+                                        }
+                                        @fullname*@
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentInfo.StudentRegNumber)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Package.PackageName)
+                                    </td>
+
+
+                                    <td>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                Action
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                                <li class="text-color-success">@Html.ActionLink(" Details", "StudentProfile", "UserManagers", new { id = item.StudentInfoID }, null)</li>
+                                                <li class="text-color-danger">@Html.ActionLink("Edit", "Edit", new { id = item.Id })</li>
+                                                <li class="text-color-danger">@Html.ActionLink("Remove", "Delete", new { id = item.Id })</li>
+
+                                            </ul>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                            }
+                        </tbody>
+                    </table>
+                    @*<div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                        <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                        @Html.PagedListPager(Model, page => Url.Action("EnrolledStudent",
+        new { page }))
+                    </div>*@
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+
+@section Style {
+
+    <link rel="stylesheet" href="~/Content/Admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+}
+
+@section Scripts {
+    <!-- DataTables -->
+    <script src="~/Content/Admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+}
+
+@section Scripts2 {
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+            $('#example2').DataTable({
+                'paging': true,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+}
+
+
+

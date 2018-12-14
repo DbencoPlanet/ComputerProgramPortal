@@ -1,0 +1,132 @@
+﻿
+@model PagedList.IPagedList<ComProgramPortal.Models.Entities.TeacherProfile>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@using ComProgramPortal.Areas.Service
+
+@{
+    ViewBag.Title = "All Teacher";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> Teacher Management</h3>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-5">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" value="@ViewBag.CurrentFilter">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-5">
+                    <div class="btn-group pull-right">
+                        @Html.ActionLink("All Students", "AllStudents", null, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Users", "Index", null, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Reset User Password", "ResetUserPassword", "Account", new { area = "" }, new { @class = "btn btn-danger" })
+
+
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                        <th>
+                            FULL NAME
+                        </th>
+                        <th>
+                            USERNAME
+                        </th>
+                        <th>
+                            CREATION DATE
+                        </th>
+                     
+                        <th>
+                            REGISTERED BY
+                        </th>
+                        @foreach (var item in ViewBag.Roles)
+                        {
+                            <th>@item.Name.ToUpper()</th>
+                        }
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.user.Surname @item.user.FirstName @item.user.OtherName
+                            </td>
+
+                            <td>
+                                @item.user.UserName
+                            </td>
+                            <td>
+                                @item.user.DateRegistered
+                            </td>
+                            <td>
+                                @item.user.RegisteredBy
+                            </td>
+                            @foreach (var role in ViewBag.Roles)
+                            {
+                                <td>
+                                    @using (Html.BeginForm("UserToRole", "UserManagers"))
+                                    {
+                                        <input type="hidden" value="@item.Id" name="userId" />
+                                        <input type="hidden" value="@role.Name" name="rolename" />
+                                        <input type="checkbox" class="icheckbox_minimal-blue" name="ischecked" onclick="this.form.submit();" value="true" checked="@GeneralService.IsUserInRole(item.user.Id, role.Name)" />
+
+                                    }
+                                </td>
+                            }
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("AllTeacher",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>

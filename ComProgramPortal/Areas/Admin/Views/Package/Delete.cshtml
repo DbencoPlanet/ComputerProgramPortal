@@ -1,0 +1,120 @@
+﻿@model ComProgramPortal.Models.Entities.Package
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> Delete Package</h3>
+
+            </div>
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+                    <tr>
+                        @*<th>
+                                @Html.DisplayNameFor(model => model.User.Surname)
+                            </th>*@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fullname)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.PackageName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PackageAmount)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.Duration)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.StartDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.EndDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PackageInfo)
+                        </th>
+                        <th>Action</th>
+                      
+                    </tr>
+
+                    <tr>
+
+
+                        <td>
+                            @*@Html.DisplayFor(model => model.Teacher)*@
+                            @Model.Fullname
+                        </td>
+
+
+
+                        <td>
+                            @Model.PackageName
+
+                        </td>
+
+
+                        <td>
+                            @Model.PackageAmount
+
+                        </td>
+
+
+                        <td>
+                            @Model.Duration
+
+                        </td>
+
+                        <td>
+                            @Model.StartDate
+
+                        </td>
+
+                        <td>
+                            @Model.EndDate
+                        </td>
+
+
+
+
+                        <td>
+                            @Model.PackageInfo
+                        </td>
+
+
+
+
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                                    @Html.ActionLink("Back to List", "Index")
+                                </div>
+                            }
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+  

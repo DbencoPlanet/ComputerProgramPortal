@@ -1,0 +1,97 @@
+﻿
+
+@model IEnumerable<ComProgramPortal.Models.Entities.AssignmentAnswer>
+@*@model ComProgramPortal.Models.Entities.AssignmentAnswer*@
+@*@model ComProgramPortal.Models.Entities.AssignmentAnswer*@
+
+
+@{
+    ViewBag.Title = "Answered Assignment";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <div class="box box-default">
+            <div class="box-header with-border">
+
+                <h3 class="box-title">Assignment Details</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+ 
+@foreach (var item in Model)  {
+    <tr>
+        <th>NAME</th>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Surname)  @Html.DisplayFor(modelItem => item.User.FirstName)   @Html.DisplayFor(modelItem => item.User.OtherName)
+        </td>
+    </tr>
+    <tr>
+
+        <th> PACKAGE NAME</th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Package.PackageName)
+        </td>
+    </tr>
+    <tr>
+        <th>DATE ANSWERED</th>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAnswered)
+        </td>
+    </tr>
+    <tr>
+        <th>DATE MODIFIED </th>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.DateModified)
+        </td>
+    </tr>
+    <tr>
+        <th>ANSWER </th>
+        <td>
+            @Html.Raw(Html.DisplayFor(modelItem => item.Answer))
+        </td>
+    </tr>
+    <tr>
+        <th>ASSESS </th>
+        <td>
+            @if (item.Assessed == true)
+            {
+                <text>Assessed</text>
+            }
+            else
+            {
+                <text>Not Assessed</text>
+            }
+            @*@Html.DisplayFor(modelItem => item.Assessed)*@
+        </td>
+  
+    </tr>
+    }
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+
+        </div>
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+
+
+    <div class="col-md-1"></div>
+
+</div>
+
+

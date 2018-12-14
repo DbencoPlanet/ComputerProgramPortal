@@ -1,0 +1,66 @@
+﻿@*@model IEnumerable<ComProgramPortal.Models.Entities.Package>*@
+
+@model ComProgramPortal.Models.Entities.Payment
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> Payment Management</h3>
+
+            </div>
+            <br />
+            
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-success table-bordered" style="background-color:#3c8dbc; color:#ffffff;">
+
+                                <tr>
+                                    <th>Package</th>
+                                    <td>@Model.Package.PackageName</td>
+                                </tr>
+                                @*<tr>
+                                    <th>Student Name</th>
+                                    <td> @Model.User.FirstName    @Model.User.OtherName  </td>
+                                </tr>*@
+                                <tr>
+                                    <th>Date</th>
+                                    <td>@Model.PaymentDate</td>
+                                </tr>
+                                <tr>
+                                    <th>Amount</th>
+                                    <td>@Model.PaymentAmount</td>
+
+                                </tr>
+                                <tr>
+                                    <th>Balance</th>
+                                    <td>@Model.Balance</td>
+                                </tr>
+                               
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="btn-group pull-right">
+                  
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+

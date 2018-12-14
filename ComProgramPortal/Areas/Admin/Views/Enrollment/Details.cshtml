@@ -1,0 +1,92 @@
+﻿@model ComProgramPortal.Models.Entities.Enrollment
+@*@model IEnumerable<ComProgramPortal.Models.Entities.Enrollment>*@
+
+    @{
+        ViewBag.Title = "Details";
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+
+
+    <div class="row">
+        <div class="col-xs-1"></div>
+            <div class="col-xs-10">
+                <div class="box panel-primary">
+                    <div class="box-body">
+                        <!-- /.box-header -->
+                        <div class="table-responsive border-table">
+
+                            <table id="example" class="table table-bordered table-hover">
+
+                                <thead>
+                                    <tr>
+
+
+                                        <th>
+                                            USERNAME
+                                        </th>
+
+                                        <td>
+                                            @Html.DisplayFor(model => model.StudentInfo.Username)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            FULL NAME
+                                        </th>
+                                        <td>
+
+                                            @{
+                                                var fullname = @Html.DisplayFor(model => model.StudentInfo.Surname) + " " + @Html.DisplayFor(model => model.StudentInfo.Firstname) + " " + @Html.DisplayFor(model => model.StudentInfo.Othername);
+                                            }
+                                            @fullname
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <th>
+                                            PACKAGE
+                                        </th>
+                                        <td>
+                                            @Html.DisplayFor(model => model.Package.PackageName)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            ACTION
+                                        </th>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                                                    Action
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" style="border-left:1px dotted #337ab7;">
+                                                    <li class="text-color-success">@Html.ActionLink("Details", "StudentProfile", "UserManagers", new { id = Model.StudentInfoID }, null)</li>
+                                                    <li class="text-color-danger">@Html.ActionLink("Remove", "Delete", new { id = Model.Id })</li>
+
+                                                </ul>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+
+
+                            </table>
+                           
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+            </div>
+            <div class="col-xs-1"></div>
+                <!-- /.col -->
+            
+         

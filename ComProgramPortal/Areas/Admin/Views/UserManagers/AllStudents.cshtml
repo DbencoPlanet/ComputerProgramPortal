@@ -1,0 +1,249 @@
+﻿
+@model PagedList.IPagedList<ComProgramPortal.Models.Entities.StudentInfo>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@using ComProgramPortal.Areas.Service
+
+@{
+    ViewBag.Title = "All Students";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> Students Management</h3>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-5">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" value="@ViewBag.CurrentFilter">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-5">
+
+                    <div class="btn-group pull-right">
+
+
+                        <span class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" style="border-radius:0px !important;" type="button" data-toggle="dropdown">
+                                Filter
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="border:1px solid #3c8dbc;">
+                                
+
+                                <li>    @Html.ActionLink("Teacher", "AllTeacher", null, new { @class = "" })</li>
+                                <li>@Html.ActionLink("Users", "Index", null, new { @class = "" })</li>
+
+                            </ul>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" id="Record" class="table table-bordered table-hover">
+
+                    <tr>
+                        @if (User.IsInRole("SuperAdmin"))
+                        {
+                            <th>ID</th>
+                            <th>SURNAME</th>
+                        }
+                       
+                        <th>
+                            FULLNAME
+                        </th>
+                        <th>
+                            USERNAME
+                        </th>
+                        <th>
+                            CREATION DATE
+                        </th>
+                        <th>
+                            REGISTERED BY
+                        </th>
+                        @foreach (var item in ViewBag.Roles)
+                        {
+                            <th>@item.Name.ToUpper()</th>
+                        }
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.user != null)
+                        {
+                            <tr>
+                                @if (User.IsInRole("SuperAdmin"))
+                                {
+                                    <td class="RecordId">
+
+                                        <span style="display:none;">@item.user.Id</span>
+
+                                    </td>
+
+                                    <td class="surname">
+                                        @*@Html.DisplayFor(modelItem => item.TestScore)*@
+
+                                        <span>@Html.DisplayFor(modelItem => item.user.Surname)</span>
+                                        <input type="text" value="@item.user.Surname" style="display:none" />
+                                    </td>
+                                }
+                                <td>
+                                    @item.user.Surname @item.user.FirstName @item.user.OtherName
+                                </td>
+
+                                <td>
+                                    @item.user.UserName
+                                </td>
+                                <td>
+                                    @item.user.DateRegistered
+                                </td>
+                                <td>
+                                    @item.user.RegisteredBy
+                                </td>
+                                @foreach (var role in ViewBag.Roles)
+                                {
+                                    <td>
+                                        @using (Html.BeginForm("UserToRole", "UserManagers"))
+                                        {
+                                            <input type="hidden" value="@item.Id" name="userId" />
+                                            <input type="hidden" value="@role.Name" name="rolename" />
+                                            <input type="checkbox" class="icheckbox_minimal-blue" name="ischecked" onclick="this.form.submit();" value="true" checked="@GeneralService.IsUserInRole(item.user.Id, role.Name)" />
+
+                                        }
+                                    </td>
+                                }
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                                    @if (User.IsInRole("SuperAdmin"))
+                                    {
+                                        <a class="Edit btn btn-primary" href="javascript:;">Edit</a>
+                                        <a class="Update btn btn-warning" href="javascript:;" style="display:none">Update</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("AllStudents",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>*@
+    <script src="~/Content/angular/json2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //Remove the dummy row if data present.
+            if ($("#Record tr").length > 2) {
+                $("#Record tr:eq(1)").remove();
+            }
+        });
+        function AppendRow(row, studentRecordId, surname) {
+            //Bind id.
+            $(".RecordId", row).find("span").html(studentRecordId);
+
+
+            //Bind TestScore.
+            $(".surname", row).find("span").html(surname);
+
+        };
+
+
+
+        //Edit event handler.
+        $("body").on("click", "#Record .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            row.find(".Delete").hide();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#Record .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+
+            var student = {};
+            var stdidd = row.find(".RecordId").find("span").html();
+
+            var surname = row.find(".surname").find("span").html();
+
+            var obj = { "stdid": stdidd, "surname": surname };
+            console.log(student)
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateSurname", "UserManagers", new { area = "Admin" })",
+                data: JSON.stringify(obj),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        });
+
+    </script>
+}
+
+
+
+
+

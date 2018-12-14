@@ -1,0 +1,47 @@
+﻿@using ComProgramPortal.Areas.Data.Service
+
+<div class="user-panel">
+    <div class="pull-left image">
+
+        @if (Model.Image != null)
+        {
+            <img src="data:image/jpg;base64,@(Convert.ToBase64String(Model.Image))" class="img-circle img-responsive" />
+
+        }
+        else
+        {
+            <img src="~/Content/Admin/dist/img/avatar5.jpg" class="img-circle img-responsive" />
+
+        }
+    </div>
+    <div class="pull-left info">
+        <p>
+            @User.Identity.Name
+
+        </p>
+        <p style="text-wrap:normal;">
+            @if (User.IsInRole("Admin"))
+            {
+                <span>(Admin)</span>
+            }
+            @if (User.IsInRole("Teacher"))
+            {
+                <span>(Staff)</span>
+            }
+            @if (User.IsInRole("Student"))
+            {
+                <span>Student</span>
+            }
+            @if (User.IsInRole("SuperAdmin"))
+            {
+                <span>(Super Admin)</span>
+            }
+            @if (User.IsInRole("Mods"))
+            {
+                <span>(Form Teacher)</span>
+            }
+        </p>
+        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+    </div>
+</div>
+

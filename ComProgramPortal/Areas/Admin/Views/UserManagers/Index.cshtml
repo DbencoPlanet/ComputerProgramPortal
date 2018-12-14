@@ -1,0 +1,185 @@
+﻿@using ComProgramPortal.Areas.Service
+@model PagedList.IPagedList<ComProgramPortal.Models.ApplicationUser>
+@using PagedList.Mvc;
+
+@{ 
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Index";
+    //var roles = ((string[])ViewBag.Roles).OrderBy(x => x);
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box panel-primary">
+
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-fw fa-user-plus"></i> User Management</h3>
+                @if (TempData["success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>@TempData["success"]</strong>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
+                <div class="col-md-1"></div>
+
+                <div class="col-md-5">
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="input-group" style="margin-left:10px;">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-primary" value="@ViewBag.CurrentFilter">Search</button>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search...">
+                        </div>
+
+                    }
+                </div>
+                <div class="col-md-5">
+
+                    <div class="btn-group pull-right">
+
+
+                        <span class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" style="border-radius:0px !important;" type="button" data-toggle="dropdown">
+                                Filter
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="border:1px solid #3c8dbc;">
+                 
+                                <li>
+                                    @Html.ActionLink("Student", "AllStudents", null, new { @class = "" })
+                                </li>
+                                <li>    @Html.ActionLink("Teacher", "AllTeacher", null, new { @class = "" })</li>
+
+                            </ul>
+                        </span>
+                        <span>
+                            @Html.ActionLink("Reset User Password", "ResetUserPassword", "Account", new { area = "" }, new { @class = "btn btn-danger", style = "border-radius:0px !important;" })
+                        </span>
+
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <br />
+            <!-- /.box-header -->
+            <div class="box-body table-responsive border-table">
+
+
+                <br />
+
+                <table border="1" class="table table-bordered table-hover">
+
+                    <tr>
+                        <th>
+                            BLOCK USER
+                        </th>
+
+                        <th>
+                            FULL NAME
+                        </th>
+                        <th>
+                            USERNAME
+                        </th>
+                        <th>
+                            CREATION DATE
+                        </th>
+                        <th>
+                            REGISTERED BY
+                        </th>
+
+                        @foreach (var item in ViewBag.Roles)
+                        {
+                            <th>@item.Name.ToUpper()</th>
+                        }
+
+                        <th>ACTION</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.IsLocked == true)
+                                {
+                                    <input type="checkbox" class="flat-red" checked>
+                                }
+                                else
+                                {
+                                    <input type="checkbox" class="flat-red">
+                                }
+
+
+
+                            <td>
+                                @item.Surname @item.FirstName @item.OtherName
+                            </td>
+
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.DateRegistered
+                            </td>
+                            <td>
+                                @item.RegisteredBy
+                            </td>
+                            @foreach (var role in ViewBag.Roles)
+                            {
+                                <td>
+                                    @using (Html.BeginForm("UserToRole", "UserManagers"))
+                                    {
+                                        <input type="hidden" value="@item.Id" name="userId" />
+                                        <input type="hidden" value="@role.Name" name="rolename" />
+                                        <input type="checkbox" class="icheckbox_minimal-blue" name="ischecked" onclick="this.form.submit();" value="true" checked="@GeneralService.IsUserInRole(item.Id, role.Name)" />
+
+                                    }
+                                </td>
+                            }
+
+                            <td>
+
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+                                @if (item.IsLocked == true)
+                                {
+                                    @Html.ActionLink("Unblock", "Islocked", new { UserId = item.Id }, new { @class = "btn btn-success" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Block", "Islocked", new { UserId = item.Id }, new { @class = "btn btn-danger" })
+                                }
+
+
+
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <div class="container text-center page" style="margin-left:auto;margin-right:auto;">
+
+                    <p>Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+    </div>
+    <!-- /.col -->
+</div>
